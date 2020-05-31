@@ -39,7 +39,10 @@ public class Code01_FibonacciProblem {
 		}
 		// [ 1 ,1 ]
 		// [ 1, 0 ]
-		int[][] base = { { 1, 1 }, { 1, 0 } };
+		int[][] base = { 
+				{ 1, 1 }, 
+				{ 1, 0 } 
+				};
 		int[][] res = matrixPower(base, n - 2);
 		return res[0][0] + res[1][0];
 	}
@@ -49,6 +52,7 @@ public class Code01_FibonacciProblem {
 		for (int i = 0; i < res.length; i++) {
 			res[i][i] = 1;
 		}
+		
 		// res = 矩阵中的1
 		int[][] tmp = m;// 矩阵1次方
 		for (; p != 0; p >>= 1) {
@@ -60,6 +64,7 @@ public class Code01_FibonacciProblem {
 		return res;
 	}
 
+	// 两个矩阵乘完之后的结果返回
 	public static int[][] muliMatrix(int[][] m1, int[][] m2) {
 		int[][] res = new int[m1.length][m2[0].length];
 		for (int i = 0; i < m1.length; i++) {
@@ -151,13 +156,16 @@ public class Code01_FibonacciProblem {
 		if (n == 1 || n == 2 || n == 3) {
 			return n;
 		}
-		int[][] base = { { 1, 1, 0 }, { 0, 0, 1 }, { 1, 0, 0 } };
+		int[][] base = { 
+				{ 1, 1, 0 }, 
+				{ 0, 0, 1 }, 
+				{ 1, 0, 0 } };
 		int[][] res = matrixPower(base, n - 3);
 		return 3 * res[0][0] + 2 * res[1][0] + res[2][0];
 	}
 
 	public static void main(String[] args) {
-		int n = 20;
+		int n = 19;
 		System.out.println(f1(n));
 		System.out.println(f2(n));
 		System.out.println(f3(n));

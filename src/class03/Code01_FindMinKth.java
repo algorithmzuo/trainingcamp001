@@ -43,11 +43,20 @@ public class Code01_FindMinKth {
 		return ans;
 	}
 
+	// arr 第k小的数
+	// process2(arr, 0, N-1, k-1)
+	// arr[L..R]  范围上，如果排序的话(不是真的去排序)，找位于index的数
+	// index [L..R]
 	public static int process2(int[] arr, int L, int R, int index) {
-		if (L == R) {
+		if (L == R) { // L = =R ==INDEX
 			return arr[L];
 		}
+		// 不止一个数  L +  [0, R -L]
 		int pivot = arr[L + (int) (Math.random() * (R - L + 1))];
+		
+		// range[0] range[1]
+		//  L   ..... R     pivot 
+		//  0         1000     70...800
 		int[] range = partition(arr, L, R, pivot);
 		if (index >= range[0] && index <= range[1]) {
 			return arr[index];
@@ -86,6 +95,7 @@ public class Code01_FindMinKth {
 		return bfprt(arr, 0, arr.length - 1, k - 1);
 	}
 
+	// arr[L..R]  如果排序的话，位于index位置的数，是什么，返回
 	public static int bfprt(int[] arr, int L, int R, int index) {
 		if (L == R) {
 			return arr[L];
@@ -101,14 +111,23 @@ public class Code01_FindMinKth {
 		}
 	}
 
+	// arr[L...R]  五个数一组
+	// 每个小组内部排序
+	// 每个小组中位数领出来，组成marr
+	// marr中的中位数，返回
 	public static int medianOfMedians(int[] arr, int L, int R) {
 		int size = R - L + 1;
 		int offset = size % 5 == 0 ? 0 : 1;
 		int[] mArr = new int[size / 5 + offset];
 		for (int team = 0; team < mArr.length; team++) {
 			int teamFirst = L + team * 5;
+			// L ... L + 4
+			// L +5 ... L +9
+			// L +10....L+14
 			mArr[team] = getMedian(arr, teamFirst, Math.min(R, teamFirst + 4));
 		}
+		// marr中，找到中位数
+		// marr(0, marr.len - 1,  mArr.length / 2 )
 		return bfprt(mArr, 0, mArr.length - 1, mArr.length / 2);
 	}
 

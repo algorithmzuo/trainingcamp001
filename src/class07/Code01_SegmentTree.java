@@ -22,6 +22,7 @@ public class Code01_SegmentTree {
 				arr[i] = origin[i - 1];
 			}
 			sum = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围的累加和信息
+			
 			lazy = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围沒有往下傳遞的纍加任務
 			change = new int[MAXN << 2]; // 用来支持脑补概念中，某一个范围有没有更新操作的任务
 			update = new boolean[MAXN << 2]; // 用来支持脑补概念中，某一个范围更新任务，更新成了什么
@@ -31,6 +32,8 @@ public class Code01_SegmentTree {
 			sum[rt] = sum[rt << 1] + sum[rt << 1 | 1];
 		}
 
+		// 之前的，所有懒增加，和懒更新，从父范围，发给左右两个子范围
+		// 分发策略是什么
 		// ln表示左子树元素结点个数，rn表示右子树结点个数
 		private void pushDown(int rt, int ln, int rn) {
 			if (update[rt]) {
@@ -90,7 +93,8 @@ public class Code01_SegmentTree {
 		// L..R -> 任务范围 ,所有的值累加上C
 		// l,r -> 表达的范围
 		// rt  去哪找l，r范围上的信息
-		public void add(int L, int R, int C,
+		public void add(
+				int L, int R, int C,
 				int l, int r, 
 				int rt) {
 			// 任务的范围彻底覆盖了，当前表达的范围
@@ -99,10 +103,11 @@ public class Code01_SegmentTree {
 				lazy[rt] += C;
 				return;
 			}
-			// 要把任务往下发
+			// 任务并没有把l...r全包住
+			// 要把当前任务往下发
 			// 任务  L, R  没有把本身表达范围 l,r 彻底包住
-			int mid = (l + r) >> 1;
-			// 下发之前的lazy add任务
+			int mid = (l + r) >> 1; // l..mid  (rt << 1)   mid+1...r(rt << 1 | 1)
+			// 下发之前所有攒的懒任务
 			pushDown(rt, mid - l + 1, r - mid);
 			// 左孩子是否需要接到任务
 			if (L <= mid) {
@@ -116,6 +121,7 @@ public class Code01_SegmentTree {
 			pushUp(rt);
 		}
 
+		//   1~6 累加和是多少？ 1~8   rt
 		public long query(int L, int R, int l, int r, int rt) {
 			if (L <= l && r <= R) {
 				return sum[rt];

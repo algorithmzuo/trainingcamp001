@@ -115,9 +115,7 @@ public class Code01_AC2 {
 		ac.insert("he");
 		ac.insert("abcdheks");
 		// 设置fail指针
-		ac.build();
-		
-		
+		ac.build();	
 		
 		List<String> contains = ac.containWords("abcdhekskdjfafhasldkflskdjhwqaeruv");
 		for (String word : contains) {

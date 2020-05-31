@@ -15,6 +15,7 @@ public class Code02_FallingSquares {
 		public SegmentTree(int size) {
 			int N = size + 1;
 			max = new int[N << 2];
+			
 			change = new int[N << 2];
 			update = new boolean[N << 2];
 		}
@@ -73,6 +74,11 @@ public class Code02_FallingSquares {
 
 	}
 
+	// positions
+	// [2,7] -> 2 , 8
+	// [3, 10] -> 3, 12
+	//
+	//
 	public HashMap<Integer, Integer> index(int[][] positions) {
 		TreeSet<Integer> pos = new TreeSet<>();
 		for (int[] arr : positions) {
@@ -89,10 +95,13 @@ public class Code02_FallingSquares {
 
 	public List<Integer> fallingSquares(int[][] positions) {
 		HashMap<Integer, Integer> map = index(positions);
-		int N = map.size();
+		// 100   -> 1    306 ->   2   403 -> 3
+		// [100,403]   1~3 
+		int N = map.size(); // 1 ~ 	N
 		SegmentTree segmentTree = new SegmentTree(N);
 		int max = 0;
 		List<Integer> res = new ArrayList<>();
+		// 每落一个正方形，收集一下，所有东西组成的图像，最高高度是什么
 		for (int[] arr : positions) {
 			int L = map.get(arr[0]);
 			int R = map.get(arr[0] + arr[1] - 1);

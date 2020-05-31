@@ -2,36 +2,36 @@ package class05;
 
 public class Code02_AddShortestEnd {
 
-	public static String shortestEnd(String str) {
-		if (str == null || str.length() == 0) {
+	public static String shortestEnd(String s) {
+		if (s == null || s.length() == 0) {
 			return null;
 		}
-		char[] charArr = manacherString(str);
-		int[] pArr = new int[charArr.length];
-		int index = -1;
-		int pR = -1;
+		char[] str = manacherString(s);
+		int[] pArr = new int[str.length];
+		int C = -1;
+		int R = -1;
 		int maxContainsEnd = -1;
-		for (int i = 0; i != charArr.length; i++) {
-			pArr[i] = pR > i ? Math.min(pArr[2 * index - i], pR - i) : 1;
-			while (i + pArr[i] < charArr.length && i - pArr[i] > -1) {
-				if (charArr[i + pArr[i]] == charArr[i - pArr[i]])
+		for (int i = 0; i != str.length; i++) {
+			pArr[i] = R > i ? Math.min(pArr[2 * C - i], R - i) : 1;
+			while (i + pArr[i] < str.length && i - pArr[i] > -1) {
+				if (str[i + pArr[i]] == str[i - pArr[i]])
 					pArr[i]++;
 				else {
 					break;
 				}
 			}
-			if (i + pArr[i] > pR) {
-				pR = i + pArr[i];
-				index = i;
+			if (i + pArr[i] > R) {
+				R = i + pArr[i];
+				C = i;
 			}
-			if (pR == charArr.length) {
+			if (R == str.length) {
 				maxContainsEnd = pArr[i];
 				break;
 			}
 		}
-		char[] res = new char[str.length() - maxContainsEnd + 1];
+		char[] res = new char[s.length() - maxContainsEnd + 1];
 		for (int i = 0; i < res.length; i++) {
-			res[res.length - 1 - i] = charArr[i * 2 + 1];
+			res[res.length - 1 - i] = str[i * 2 + 1];
 		}
 		return String.valueOf(res);
 	}

@@ -47,9 +47,9 @@ public class Code05_MinHeight {
 		while (cur != null) {
 			mostRight = cur.left;
 			if (mostRight != null) {
-				int leftHeight = 1;
+				int rightBoardSize = 1;
 				while (mostRight.right != null && mostRight.right != cur) {
-					leftHeight++;
+					rightBoardSize++;
 					mostRight = mostRight.right;
 				}
 				if (mostRight.right == null) { // 第一次到达
@@ -61,7 +61,7 @@ public class Code05_MinHeight {
 					if (mostRight.left == null) {
 						minHeight = Math.min(minHeight, curLevel);
 					}
-					curLevel -= leftHeight;
+					curLevel -= rightBoardSize;
 					mostRight.right = null;
 				}
 			} else { // 只有一次到达

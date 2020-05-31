@@ -27,9 +27,21 @@ public class Code03_MonotonousStack {
 		return res;
 	}
 
+	// arr [3, 2, 1, 4, 5]
+	//      0  1  2  3  4
+	
+	//  [
+	//    0 :  [-1,  1  ]
+	//    1 :  [-1,  2  ]
+	
+	//  ] 
+	//
 	public static int[][] getNearLess(int[] arr) {
 		int[][] res = new int[arr.length][2];
+		
+		
 		// List<Integer> -> 放的是位置，同样值的东西，位置压在一起
+		// 代表值    底  ->  顶   小  -> 大
 		Stack<List<Integer>> stack = new Stack<>();
 		for (int i = 0; i < arr.length; i++) { // i -> arr[i] 进栈
 			// 底 -> 顶， 小 -> 大
