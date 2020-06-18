@@ -1,7 +1,7 @@
 package class06;
 
 public class Code01_MorrisTraversal {
-	
+
 	public static class Node {
 		public int value;
 		Node left;
@@ -11,7 +11,7 @@ public class Code01_MorrisTraversal {
 			this.value = data;
 		}
 	}
-	
+
 	public static void morris(Node head) {
 		if (head == null) {
 			return;
@@ -32,16 +32,13 @@ public class Code01_MorrisTraversal {
 					mostRight.right = cur;
 					cur = cur.left;
 					continue;
-				} else { // mostRight.right != null  ->  mostRight.right == cur
+				} else { // mostRight.right != null -> mostRight.right == cur
 					mostRight.right = null;
 				}
 			}
 			cur = cur.right;
 		}
 	}
-	
-	
-	
 
 	public static void morrisIn(Node head) {
 		if (head == null) {
@@ -175,19 +172,15 @@ public class Code01_MorrisTraversal {
 		}
 		return buf.toString();
 	}
-	
-	
-	
-	
-	
+
 	public static boolean isBST(Node head) {
 		if (head == null) {
 			return true;
 		}
 		Node cur = head;
 		Node mostRight = null;
-		
 		Integer pre = null;
+		boolean ans = true;
 		while (cur != null) {
 			mostRight = cur.left;
 			if (mostRight != null) {
@@ -202,19 +195,14 @@ public class Code01_MorrisTraversal {
 					mostRight.right = null;
 				}
 			}
-			if(pre != null && pre >= cur.value) {
-				return false;
+			if (pre != null && pre >= cur.value) {
+				ans = false;
 			}
 			pre = cur.value;
 			cur = cur.right;
 		}
-		return true;
+		return ans;
 	}
-	
-	
-	
-	
-	
 
 	public static void main(String[] args) {
 		Node head = new Node(4);
