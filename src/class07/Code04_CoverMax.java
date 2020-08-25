@@ -26,28 +26,28 @@ public class Code04_CoverMax {
 	public static class DownComparator implements Comparator<Rectangle> {
 		@Override
 		public int compare(Rectangle o1, Rectangle o2) {
-			return o1.down - o2.down;
+			return o1.down != o2.down ? (o1.down - o2.down) : o1.toString().compareTo(o2.toString());
 		}
 	}
 
 	public static class LeftComparator implements Comparator<Rectangle> {
 		@Override
 		public int compare(Rectangle o1, Rectangle o2) {
-			return o1.left - o2.left;
+			return o1.left != o2.left ? (o1.left - o2.left) : o1.toString().compareTo(o2.toString());
 		}
 	}
 
 	public static class RightComparator implements Comparator<Rectangle> {
 		@Override
 		public int compare(Rectangle o1, Rectangle o2) {
-			return o1.right - o2.right;
+			return o1.right != o2.right ? (o1.right - o2.right) : o1.toString().compareTo(o2.toString());
 		}
 	}
 
 	// 矩形数量是N
 	// O(N*LogN)
 	// +
-	// O(N) * [ O(N) +   O(N *LogN)  ]
+	// O(N) * [ O(N) + O(N *LogN) ]
 	public static int maxCover(Rectangle[] recs) {
 		if (recs == null || recs.length == 0) {
 			return 0;
@@ -55,7 +55,7 @@ public class Code04_CoverMax {
 		// 根据down（底）排序
 		Arrays.sort(recs, new DownComparator());
 		// 可能会对当前底边的公共局域，产生影响的矩形
-		// list ->  treeSet(有序表表达)
+		// list -> treeSet(有序表表达)
 		TreeSet<Rectangle> leftOrdered = new TreeSet<>(new LeftComparator());
 		int ans = 0;
 		// O(N)
