@@ -62,7 +62,7 @@ public class Code04_CoverMax {
 		for (int i = 0; i < recs.length; i++) { // 依次考察每一个矩形的底边
 			int curDown = recs[i].down; // 当前的底边值取出来
 			int index = i;
-			while (recs[index].down == curDown) {
+			while (index < recs.length && recs[index].down == curDown) {
 				leftOrdered.add(recs[index]); // O(logN)
 				index++;
 			}
