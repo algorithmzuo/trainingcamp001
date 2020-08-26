@@ -59,11 +59,12 @@ public class Code04_CoverMax {
 		TreeSet<Rectangle> leftOrdered = new TreeSet<>(new LeftComparator());
 		int ans = 0;
 		// O(N)
-		for (int i = 0; i < recs.length; i++) { // 依次考察每一个矩形的底边
+		for (int i = 0; i < recs.length;) { // 依次考察每一个矩形的底边
+			// 同样底边的矩形一批处理
 			do {
 				leftOrdered.add(recs[i++]);
 			} while (i < recs.length && recs[i].down == recs[i - 1].down);
-			// O(N) list是不是有一些顶<=底的矩形
+			// 清除顶<=当前底的矩形
 			removeLowerOnCurDown(leftOrdered, recs[i - 1].down);
 			// 维持了右边界排序的容器
 			TreeSet<Rectangle> rightOrdered = new TreeSet<>(new RightComparator());
